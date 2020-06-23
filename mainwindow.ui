@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>10</y>
+      <y>40</y>
       <width>101</width>
       <height>41</height>
      </rect>
@@ -40,8 +40,8 @@
    <widget class="QPushButton" name="sign_btn">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>10</y>
+      <x>130</x>
+      <y>40</y>
       <width>101</width>
       <height>41</height>
      </rect>
@@ -53,8 +53,8 @@
    <widget class="QPushButton" name="verify_btn">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>10</y>
+      <x>240</x>
+      <y>40</y>
       <width>101</width>
       <height>41</height>
      </rect>
@@ -66,8 +66,8 @@
    <widget class="QPushButton" name="base64_en_btn">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>120</y>
+      <x>370</x>
+      <y>40</y>
       <width>101</width>
       <height>41</height>
      </rect>
@@ -79,8 +79,8 @@
    <widget class="QPushButton" name="base64_de_btn">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>120</y>
+      <x>490</x>
+      <y>40</y>
       <width>101</width>
       <height>41</height>
      </rect>
@@ -96,7 +96,7 @@
      <x>0</x>
      <y>0</y>
      <width>840</width>
-     <height>28</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
