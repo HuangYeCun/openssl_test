@@ -3,6 +3,12 @@
 
 #include <QMainWindow>
 
+#include <memory>
+
+namespace openssl {
+class OpensslHelper;
+}
+
 namespace Ui {
 class MainWindow;
 }
@@ -27,11 +33,15 @@ private slots:
     void base64_test_slot();
 
 private:
-    int base64_encode(const char *in_str, int in_len, char *out_str);
-    int base64_decode(const char *in_str, int in_len, char *out_str);
+    int base64_encode(const char *in_str, int in_len,
+                      char *out_str, bool with_new_line);
+    int base64_decode(const char *in_str, int in_len,
+                      char *out_str, bool with_new_line);
 
 private:
     Ui::MainWindow *ui;
+
+    std::unique_ptr<openssl::OpensslHelper> ssl_helper_;
 
     std::string signed_data_;
     unsigned char* signed_data;

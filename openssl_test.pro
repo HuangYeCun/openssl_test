@@ -12,13 +12,16 @@ TARGET = openssl_test
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp
+SOURCES +=\
+    opensslhelper.cc \
+    mainwindow.cc \
+    main.cc
 
 HEADERS  += mainwindow.h \
     include/openssl/aes.h \
     include/openssl/md5.h \
-    include/openssl/rsa.h
+    include/openssl/rsa.h \
+    opensslhelper.h
 
 FORMS    += mainwindow.ui
 
