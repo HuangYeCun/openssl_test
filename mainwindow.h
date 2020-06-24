@@ -31,6 +31,9 @@ Q_SIGNALS:
 
   void base64_test_slot();
 
+  void aes_encrypt_slot();
+  void aes_decrypt_slot();
+
  private:
   int base64_encode(const char *in_str, int in_len, char *out_str,
                     bool with_new_line);

@@ -3,6 +3,8 @@
 
 #include "opensslhelper.h"
 
+#include "openssl/aes.h"
+
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
@@ -20,6 +22,11 @@ MainWindow::MainWindow(QWidget* parent)
 
   connect(ui->base64_en_btn, &QPushButton::clicked, this,
           &MainWindow::base64_test_slot);
+
+  connect(ui->aes_en_btn, &QPushButton::clicked, this,
+          &MainWindow::aes_encrypt_slot);
+  connect(ui->aes_de_btn, &QPushButton::clicked, this,
+          &MainWindow::aes_decrypt_slot);
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -174,4 +181,30 @@ void MainWindow::base64_test_slot() {
   std::string decode_instr = ssl_helper_->DecodeBase64(encode_instr, false);
   Q_EMIT update_log_signal("base64 decode data: " +
                            QString::fromStdString(decode_instr));
+}
+
+void MainWindow::aes_encrypt_slot() {
+    std::string indata = "加解密测试明文字符串向量在运算过程中会被改变，为了"
+                         "之后可以正常解密，拷贝一份副本使用向量在运算过程中"
+                         "会被改变，为了之后可以正常解密，拷贝一份副本使用";
+    std::string iv = "1234567890abcdef";
+    std::string encrypt_data = ssl_helper_->AesEncrypt(indata, iv);
+    Q_EMIT update_log_signal("aes encrypt data: " +
+                             QString::fromStdString(encrypt_data));
+}
+
+void MainWindow::aes_decrypt_slot() {
+//    std::string indata = "加解密测试明文字符串向量在运算过程中会被改变，为了"
+//                         "之后可以正常解密，拷贝一份副本使用向量在运算过程中"
+//                         "会被改变，为了之后可以正常解密，拷贝一份副本使用";
+    std::string indata = "hello world";
+    std::string iv = "1234567890abcdef";
+    std::string encrypt_data = ssl_helper_->AesEncrypt(indata, iv);
+    Q_EMIT update_log_signal("aes encrypt data: " +
+                             QString::fromStdString(encrypt_data));
+
+    std::string iv1 = "1234567890abcdef";
+    std::string decrypt_data = ssl_helper_->AesDecrypt(encrypt_data, iv1);
+    Q_EMIT update_log_signal("aes decrypt data: " +
+                             QString::fromStdString(decrypt_data));
 }

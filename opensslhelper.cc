@@ -10,6 +10,7 @@
 #include "openssl/sha.h"
 #include "openssl/pem.h"
 #include "openssl/err.h"
+#include "openssl/aes.h"
 
 namespace openssl {
 
@@ -158,11 +159,12 @@ std::string OpensslHelper::EncodeBase64(const std::string& data,
   BIO_write(b64, data.c_str(), data.length());
   BIO_flush(b64);
   BIO_get_mem_ptr(b64, &bptr);
-  BIO_free_all(b64);
 
   char* buff = new char[bptr->length + 1];
   memcpy(buff, bptr->data, bptr->length);
   buff[bptr->length] = 0;
+
+  BIO_free_all(b64);
 
   std::string encode_data(buff);
   delete[] buff;
@@ -224,5 +226,36 @@ std::string OpensslHelper::DecodeBase64(const std::string& data,
 //    }
 //    return rsa;
 //}
+
+std::string OpensslHelper::AesEncrypt(const std::string& indata,
+                                      const std::string& iv) {
+    unsigned char buf_encrypt[1024] = { 0 };
+    //加密
+    AES_KEY aesKey;
+    AES_set_encrypt_key(reinterpret_cast<const unsigned char*>(kAesKey.c_str()),
+                        kAesKey.length() * 8, &aesKey);
+    AES_cbc_encrypt(reinterpret_cast<const unsigned char*>(indata.c_str()),
+                    buf_encrypt, indata.length(), &aesKey,
+                    reinterpret_cast<unsigned char*>(const_cast<char*>(iv.c_str())), AES_ENCRYPT);
+
+    std::string encode_instr = EncodeBase64((char*)buf_encrypt, false);
+    return encode_instr;
+}
+
+std::string OpensslHelper::AesDecrypt(const std::string& indata,
+                                      const std::string& iv) {
+    std::string decode_instr = DecodeBase64(indata, false);
+    //解密
+    AES_KEY aesKey;
+    unsigned char buf_normal_de[1024] = {0};
+    AES_set_decrypt_key(reinterpret_cast<const unsigned char*>(kAesKey.c_str()),
+                        kAesKey.length() * 8, &aesKey);
+    AES_cbc_encrypt(reinterpret_cast<const unsigned char*>(decode_instr.c_str()),
+                    buf_normal_de, decode_instr.length(), &aesKey,
+                    reinterpret_cast<unsigned char*>(const_cast<char*>(iv.c_str())), AES_DECRYPT);
+
+   std::string decrypt_data = (char*)buf_normal_de;
+    return decrypt_data;
+}
 
 }  // namespace openssl

@@ -89,6 +89,32 @@
      <string>base64_de</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="aes_en_btn">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>110</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>AesEncrypt</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="aes_de_btn">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>110</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>AesDecrypt</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -96,7 +122,7 @@
      <x>0</x>
      <y>0</y>
      <width>840</width>
-     <height>22</height>
+     <height>28</height>
     </rect>
    </property>
   </widget>
